@@ -57,6 +57,7 @@ public class GameController {
             @PathVariable String gameID,
             @RequestHeader("Authorization") String authHeader
     ) {
+        System.out.println("GET GAME HIT, " + username + " " + gameID);
         validateToken(authHeader);
         String url = "https://www.chess.com/game/live/" + gameID;
         return ResponseEntity.ok(chessService.getGameByUrl(username, url));
@@ -86,5 +87,6 @@ public class GameController {
         if (!jwtService.isTokenValid(token, jwtService.extractEmail(token))) {
             throw new ApiException(HttpStatus.UNAUTHORIZED, "Invalid or expired token");
         }
+        System.out.println("TOKEN VALID");
     }
 }
